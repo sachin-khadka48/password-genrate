@@ -54,3 +54,28 @@ button:hover {
     font-size: 18px;
     color: #333;
 }
+
+.strength {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.strength-bar {
+    height: 8px;
+    width: 120px;
+    background: #ddd;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.strength-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: var(--strength, 0%);
+    background: var(--strength-color, #aaa);
+    transition: width 0.2s ease, background 0.2s ease;
+}
