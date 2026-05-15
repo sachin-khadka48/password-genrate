@@ -1,41 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PassForge</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
 </head>
 <body>
+  <div class="app">
     <div class="container">
-        <h1>Password Generator</h1>
-        <label for="length">Password Length:</label>
-        <select id="length">
-            <option value="8">8 characters</option>
-            <option value="12">12 characters</option>
-            <option value="16">16 characters</option>
-        </select>
-
-        <div>
-            <label><input type="checkbox" id="uppercase"> Include Uppercase Letters</label>
-            <label><input type="checkbox" id="lowercase" checked> Include Lowercase Letters</label>
-            <label><input type="checkbox" id="numbers"> Include Numbers</label>
-            <label><input type="checkbox" id="special"> Include Special Characters</label>
+      <header class="header">
+        <div class="brand">
+          <div class="logo"><i class="ti ti-shield-lock"></i></div>
+          <h1>PassForge</h1>
         </div>
+        <p>Generate secure, uncrackable passwords instantly</p>
+      </header>
 
-        <button id="generate">Generate Password</button>
-        <button id="copy">Copy Password</button>
+      <div class="tabs">
+        <button class="tab active" data-mode="password"><i class="ti ti-key"></i> Password</button>
+        <button class="tab" data-mode="passphrase"><i class="ti ti-writing"></i> Passphrase</button>
+      </div>
+
+      <div class="card">
+        <div class="display" id="displayBox">
+          <div id="passwordDisplay" class="password"></div>
+          <div class="display-actions">
+            <button id="copyBtn" class="icon-btn" title="Copy"><i class="ti ti-copy"></i></button>
+            <button id="regenBtn" class="icon-btn" title="Regenerate"><i class="ti ti-refresh"></i></button>
+          </div>
+        </div>
 
         <div class="strength">
-            <label for="strengthBar">Strength:</label>
-            <div class="strength-bar" id="strengthBar" aria-live="polite"></div>
-            <span id="strengthLabel">N/A</span>
+          <div class="strength-top">
+            <span>Strength</span>
+            <div class="strength-meta">
+              <span id="entropyText">0 bits</span>
+              <span id="strengthLabel">None</span>
+            </div>
+          </div>
+          <div class="strength-bars">
+            <div class="bar" data-bar="1"></div>
+            <div class="bar" data-bar="2"></div>
+            <div class="bar" data-bar="3"></div>
+            <div class="bar" data-bar="4"></div>
+          </div>
         </div>
 
-        <h2>Generated Password:</h2>
-        <p id="passwordDisplay"></p>
-    </div>
+        <div id="passwordOptions">
+          <div class="section">
+            <div class="section-head">
+              <span>Length</span>
+              <span id="lengthValue" class="accent">16</span>
+            </div>
+            <input id="length" type="range" min="6" max="64" value="16" />
+            <div class="range-labels"><span>6</span><span>64</span></div>
+          </div>
 
-    <script src="script.js"></script>
+          <div class="section">
+            <span class="section-title">Character Types</span>
+            <div class="chips">
+              <button class="chip active" data-opt="uppercase">🔤 A–Z</button>
+              <button class="chip active" data-opt="lowercase">🔡 a–z</button>
+              <button class="chip active" data-opt="numbers">🔢 0–9</button>
+              <button class="chip" data-opt="symbols">✦ !@#$</button>
+            </div>
+          </div>
+
+          <div class="section">
+            <span class="section-title">Exclusions</span>
+            <div class="chips">
+              <button class="chip" data-opt="excludeSimilar">No similar (il1O0)</button>
+              <button class="chip" data-opt="excludeAmbiguous">No ambiguous</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="passphraseOptions" class="hidden">
+          <div class="section">
+            <div class="section-head">
+              <span>Word Count</span>
+              <span id="wordsValue" class="accent">4</span>
+            </div>
+            <input id="words" type="range" min="2" max="8" value="4" />
+          </div>
+          <div class="section">
+            <span class="section-title">Word Separator</span>
+            <div class="separator-grid" id="separatorGrid">
+              <button class="sep-btn active" data-sep="-">-</button>
+              <button class="sep-btn" data-sep="_">_</button>
+              <button class="sep-btn" data-sep=".">.</button>
+              <button class="sep-btn" data-sep=" ">·</button>
+              <button class="sep-btn" data-sep="#">#</button>
+              <button class="sep-btn" data-sep="@">@</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="generateBtn" class="btn primary"><i class="ti ti-wand"></i> Generate</button>
+        <button id="copyMainBtn" class="btn ghost"><i class="ti ti-clipboard"></i> Copy</button>
+      </div>
+
+      <div class="bulk card-lite">
+        <div class="bulk-head">
+          <div class="bulk-title"><i class="ti ti-list"></i> Bulk Generate</div>
+          <div class="bulk-controls">
+            <div class="bulk-counts">
+              <button class="count-btn active" data-count="5">5</button>
+              <button class="count-btn" data-count="10">10</button>
+              <button class="count-btn" data-count="20">20</button>
+              <button class="count-btn" data-count="50">50</button>
+            </div>
+            <button id="bulkBtn" class="btn small">Generate</button>
+          </div>
+        </div>
+        <div id="bulkList" class="bulk-list hidden"></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <i class="ti ti-ruler"></i>
+          <div id="statLength">—</div>
+          <span>Length</span>
+        </div>
+        <div class="stat">
+          <i class="ti ti-activity"></i>
+          <div id="statEntropy">—</div>
+          <span>Entropy</span>
+        </div>
+        <div class="stat">
+          <i class="ti ti-shield-check"></i>
+          <div id="statStrength">None</div>
+          <span>Strength</span>
+        </div>
+      </div>
+
+      <div class="history card-lite">
+        <button id="historyToggle" class="history-toggle">
+          <div><i class="ti ti-history"></i> Recent Passwords <span id="historyCount">0</span></div>
+          <i class="ti ti-chevron-down" id="historyChevron"></i>
+        </button>
+        <div id="historyList" class="hidden"></div>
+      </div>
+
+      <p class="footer">Passwords generated client-side · Never stored · Cryptographically secure</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

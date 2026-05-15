@@ -1,81 +1,76 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
-h1 {
-    text-align: center;
-    color: #333;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "DM Sans", sans-serif; background: linear-gradient(135deg, #0D0D1A 0%, #12102A 50%, #0D1A1A 100%); color: #fff; }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+.app { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+.container { width: 100%; max-width: 520px; }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
+.header { text-align: center; margin-bottom: 32px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.logo { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, #7C3AED, #4F46E5); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+.header p { color: rgba(255,255,255,0.4); font-size: 14px; }
 
-input[type="number"],
-input[type="checkbox"] {
-    margin-right: 10px;
-}
+.tabs { display: flex; background: rgba(255,255,255,0.05); border-radius: 14px; padding: 4px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.08); }
+.tab { flex: 1; padding: 9px 0; border-radius: 11px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 7px; background: transparent; color: rgba(255,255,255,0.4); }
+.tab.active { background: rgba(124,58,237,0.7); color: #fff; }
 
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-}
+.card { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); padding: 24px; margin-bottom: 16px; animation: fadeIn 0.4s ease; }
+.card-lite { background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(255,255,255,0.07); padding: 18px; margin-bottom: 16px; }
 
-button:hover {
-    background-color: #218838;
-}
+.display { background: rgba(0,0,0,0.35); border-radius: 14px; padding: 18px 16px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; min-height: 64px; }
+.password { flex: 1; font-family: "JetBrains Mono", monospace; font-size: 17px; font-weight: 600; word-break: break-all; letter-spacing: 0.5px; line-height: 1.6; }
+.display-actions { display: flex; flex-direction: column; gap: 6px; margin-left: 12px; }
+.icon-btn { width: 34px; height: 34px; border-radius: 9px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-.password-display {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-}
+.strength { margin-bottom: 22px; }
+.strength-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.strength-top span { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+.strength-meta { display: flex; align-items: center; gap: 8px; }
+.strength-meta span:last-child { font-weight: 700; }
+.strength-bars { display: flex; gap: 4px; }
+.bar { flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.1); transition: background 0.3s; }
 
-.strength {
-    margin-top: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+.section { margin-bottom: 20px; }
+.section-head { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
+.section-title { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; display: block; margin-bottom: 10px; }
+.accent { font-size: 14px; font-weight: 700; color: #C4B5FD; }
 
-.strength-bar {
-    height: 8px;
-    width: 120px;
-    background: #ddd;
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-}
+input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.1); outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #7C3AED; cursor: pointer; box-shadow: 0 0 0 4px rgba(124,58,237,0.2); transition: box-shadow 0.2s; }
 
-.strength-bar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    width: var(--strength, 0%);
-    background: var(--strength-color, #aaa);
-    transition: width 0.2s ease, background 0.2s ease;
-}
+.range-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: rgba(255,255,255,0.2); }
+
+.chips, .separator-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip, .sep-btn, .count-btn { padding: 7px 14px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.18s; }
+.chip.active, .sep-btn.active, .count-btn.active { border-color: #7C3AED; background: rgba(124,58,237,0.18); color: #C4B5FD; }
+
+.actions { display: flex; gap: 10px; margin-bottom: 16px; }
+.btn { padding: 14px 0; border-radius: 14px; border: none; cursor: pointer; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.primary { flex: 2; background: linear-gradient(135deg, #7C3AED, #4F46E5); box-shadow: 0 4px 24px rgba(124,58,237,0.35); color: #fff; }
+.ghost { flex: 1; background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
+.btn.small { padding: 7px 14px; border-radius: 9px; border: 1px solid rgba(124,58,237,0.4); background: rgba(124,58,237,0.15); color: #C4B5FD; font-size: 12px; }
+
+.bulk-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.bulk-title { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.65); font-weight: 600; }
+.bulk-controls { display: flex; align-items: center; gap: 10px; }
+.bulk-list { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+
+.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 13px; padding: 13px 14px; text-align: center; }
+.stat i { color: rgba(255,255,255,0.3); font-size: 18px; display: block; margin-bottom: 6px; }
+.stat div { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.stat span { font-size: 11px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.5px; }
+
+.history-toggle { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: rgba(255,255,255,0.55); }
+.history-toggle span { background: rgba(255,255,255,0.06); border-radius: 99px; padding: 2px 8px; font-size: 12px; color: rgba(255,255,255,0.25); }
+
+.footer { text-align: center; font-size: 12px; color: rgba(255,255,255,0.2); margin-top: 24px; }
+
+.hidden { display: none; }
+.shake { animation: shake 0.35s ease; }
+
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-4px)} 40%{transform:translateX(4px)} 60%{transform:translateX(-3px)} 80%{transform:translateX(3px)} }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
